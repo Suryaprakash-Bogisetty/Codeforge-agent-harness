@@ -1,0 +1,23 @@
+# Default harness configuration. Override per-run with CLI flags.
+
+[benchmark]
+# Path to the codeforge-benchmark checkout (relative to CWD or absolute).
+path = "../codeforge-benchmark"
+
+[sandbox]
+kind = "local"                 # local | docker  (docker arrives in slice 4)
+exec_timeout_seconds = 120     # per tool-command wall clock
+max_output_bytes = 20000       # tool stdout/stderr truncation
+
+[run]
+runs_dir = "runs"
+
+[agent]
+kind = "mock"                  # mock | llm
+
+[agent.llm]
+base_url = "https://api.groq.com/openai/v1"
+model = "moonshotai/kimi-k2-instruct"
+temperature = 0.0
+max_iterations = 12            # falls back to task constraints when lower
+# API key is read from the GROQ_API_KEY environment variable, never from this file.
